@@ -1,0 +1,206 @@
+\documentclass[10pt]{article}
+
+\input{header}
+\input{word_counter}
+
+<<setup-knitr, cache=FALSE, include=FALSE, echo=FALSE, message=FALSE>>=
+library(knitr)
+
+opts_chunk$set(
+  eval = TRUE,
+  include = FALSE,
+  echo = FALSE, 
+  message = FALSE,
+  warning = FALSE,
+  self.contained = FALSE
+)
+@
+
+<<load_packages>>=
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(elements)
+  library(kableExtra)
+  library(ggplot2)
+})
+@
+
+<<establish_filepaths>>=
+repo_data_path <- file.path("./data")
+@
+
+<<read_data>>=
+iris_raw <- read.csv(file = file.path(repo_data_path, "iris.csv"))
+@
+
+<<establish_constants>>=
+base_col_pal <- c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", 
+                  "#e28743", "#DDCC77", "#CC6677", "#882255", "#AA4499")
+@
+
+<<prepare_data>>=
+# Prepare iris data
+iris_wide <- iris_raw |>
+  dplyr::select(Species, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
+
+iris_long <- iris_wide |>
+  tidyr::pivot_longer(cols = -Species, names_to = "metric", values_to = "value")
+
+# Prepare color palette for iris data
+species_names <- unique(iris_raw$Species)
+iris_col_pal <- base_col_pal[1:length(species_names)]
+names(iris_col_pal) <- species_names
+@
+
+\linenumbers
+
+\title{Example R Sweave Document for the LEC CEEDS Coding Group}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\lipsum[1]
+
+\end{abstract}
+
+\centering
+
+Keywords: ...
+
+\raggedright
+
+\section{Introduction}
+\label{sec:introduction}
+
+\countem
+
+\vspace{5mm}
+\endcountem
+\textbf{\thewordcount{} Words}
+
+\section{Should you use R Sweave and/or Latex?}
+\label{sec:should_use}
+
+\countem
+
+What is the purpose of the document?
+
+Does your target journal accept pdf documents or tex documents? 
+
+Does you target journal have a latex template?
+
+Converting a .tex document is possible, but the formatting is not perfect and will
+need manual adjustment, especially if you use complex tables.
+
+If you are rejected by the target journal does you back-up journal accept pdf or tex documents?
+
+Are you co-authors confortable: 1) collaborating using R Sweave and latex, and/or 2)s
+
+\vspace{5mm}
+\endcountem
+\textbf{\thewordcount{} Words}
+
+\section{Pros and Cons}
+\label{sec:pros_cons}
+
+\countem
+
+\lipsum[1]
+
+\vspace{5mm}
+\endcountem
+\textbf{\thewordcount{} Words}
+
+\section{Examples}
+\label{sec:examples}
+
+\countem
+
+A major benefit of authoring scientific documents, including with R Sweave,
+is the ability to integrate code and text into a reproducible document.
+
+Above we loaded and prepared the iris example dataset, below in \ref{fig:iris_plot}
+we produce a high-quality box plot which
+
+\begin{figure}[H]
+<<iris_plot, include=TRUE, fig.align='center', results="asis", fig.width=5.5, fig.height=4.5>>=
+ggplot2::ggplot(data = iris_long) +
+  ggplot2::geom_boxplot(mapping = ggplot2::aes(x = metric, y = value, fill = Species),
+                        staplewidth = 0.75,
+                        alpha = 0.75) +
+  ggplot2::theme_classic() +
+  ggplot2::scale_fill_manual(values = iris_col_pal) +
+  ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8),
+                 axis.text.x = ggplot2::element_text(size = 8),
+                 axis.title.x = ggplot2::element_text(size = 9),
+                 legend.position = "right",
+                 legend.title.align = 0.5,
+                 legend.text = ggplot2::element_text(size = 8),
+                 legend.title = ggplot2::element_text(size = 9),
+                 legend.key.size = ggplot2::unit(0.75, "cm")
+                 ) +
+  ggplot2::guides(fill = ggplot2::guide_legend(title = "Species", ncol = 1)) +
+  ggplot2::xlab("Metric") +
+  ggplot2::ylab(NULL)
+@
+\label{fig:iris_plot}
+\caption{.....}
+\end{figure}
+
+<<iris_table, include=TRUE, fig.align='center', results="asis">>=
+kableExtra::kbl(iris_wide |> dplyr::slice(1:10), 
+                caption = "The example dataset - Iris.",
+                booktabs = TRUE, longtable = FALSE, escape = FALSE,
+                format = "latex", digits = 3, linesep = "", align = "lcc", 
+                label = "iris_table") |>
+  kableExtra::kable_styling(latex_options = c("scale_down", "HOLD_position"), font_size = 9) |>
+  kableExtra::row_spec(0, bold = TRUE)
+@
+
+\vspace{5mm}
+\endcountem
+\textbf{\thewordcount{} Words}
+
+\section{Useful Resources}
+\label{sec:useful_resources}
+
+\countem
+
+\lipsum[1]
+
+\vspace{5mm}
+\endcountem
+\textbf{\thewordcount{} Words}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\countem
+
+\lipsum[1]
+
+\vspace{5mm}
+\endcountem
+\textbf{\thewordcount{} Words}
+
+\section{Author Contributions}
+\label{sec:author_contributions}
+
+Redacted for anonymity.
+
+\section{Acknowledgments}
+\label{sec:acknowledgements}
+
+Redacted for anonymity.
+
+\section{Conflict of interest}
+\label{sec:conflict_of_interest}
+
+The authors declare no potential conflict of interests.
+
+\bibliography{bibliography}
+
+\end{document}
