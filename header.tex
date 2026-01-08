@@ -6,31 +6,56 @@
   top=20mm,
 }
 
-%% Citation style
-\usepackage{natbib}
-\bibliographystyle{apalike}
-\setcitestyle{authoryear, open = {(}, close = {)}}
+%% Character formatting
+% \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % https://tex.stackexchange.com/questions/392208/command-k-unavailable-in-encoding-ot1-error-takes-me-to-line-which-doesnt-eve
 
-%% Package imports
+%% Line numbers
+\usepackage[switch]{lineno}
+
+%% Referencing setup
+\usepackage{babel}
+\usepackage[backend=biber, 
+            style=authoryear, 
+            citestyle=authoryear, 
+            maxcitenames=2,
+            doi=true,
+            url=true,
+            uniquename=false,
+            sorting=nyt]{biblatex}
+
+\addbibresource{bibliography.bib}
+
+%% Additional Package Imports
 \usepackage{multirow}
 \usepackage{float}
-\floatplacement{figure}{H}
+\floatplacement{figure}{H} % Set the default placement of floating objects such as figures to H, which means hold position to prevent free-floating behaviour.
 \usepackage{placeins}
-\usepackage[T1]{fontenc} % https://tex.stackexchange.com/questions/392208/command-k-unavailable-in-encoding-ot1-error-takes-me-to-line-which-doesnt-eve
 \usepackage{lmodern} % Needed to increase resolution
-\usepackage[switch]{lineno}
-\usepackage{longtable}
-\usepackage{tabularx}
+\usepackage{longtable} % For tables which span multiple pages
+\usepackage{tabularx} % For table formatting
+\usepackage{fvextra}
+\usepackage{csquotes}
 \usepackage{booktabs}
 \usepackage{xurl}
-\usepackage[justification=centering]{caption}
+\usepackage[justification=centering]{caption} % For figure captions
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-\usepackage{minted}
+\usepackage{minted} % For inline code formatting
 \usepackage{xcolor}
 
-\usepackage{lipsum} % Lipsum creates filler text
+% Define a light grey color for minted background code
+\definecolor{LightGray}{gray}{0.9}
 
-% \usepackage{hyperref}           % hyperref should be the last package loaded
+% Setup up hyperlinks, must be last package loaded - optional
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=black,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan
+    }
 
+% Set paragraph spacing
 \setlength{\parskip}{1em}

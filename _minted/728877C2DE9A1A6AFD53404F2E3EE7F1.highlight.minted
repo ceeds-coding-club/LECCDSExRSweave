@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{repo\PYGZus{}data\PYGZus{}path}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n+nf}{file.path}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}./data\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{iris\PYGZus{}raw}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n+nf}{read.csv}\PYG{p}{(}\PYG{n}{file}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nf}{file.path}\PYG{p}{(}\PYG{n}{repo\PYGZus{}data\PYGZus{}path}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}iris.csv\PYGZdq{}}\PYG{p}{))}\PYG{+w}{ }\PYG{o}{|\PYGZgt{}}
+\PYG{+w}{  }\PYG{n}{tibble}\PYG{o}{::}\PYG{n+nf}{as\PYGZus{}tibble}\PYG{p}{()}
+
+\PYG{n}{iris\PYGZus{}summary}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{summarytools}\PYG{o}{::}\PYG{n+nf}{descr}\PYG{p}{(}\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{iris\PYGZus{}wide}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{|\PYGZgt{}}
+\PYG{+w}{  }\PYG{n+nf}{as.data.frame}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{|\PYGZgt{}}
+\PYG{+w}{  }\PYG{n}{tibble}\PYG{o}{::}\PYG{n+nf}{as\PYGZus{}tibble}\PYG{p}{(}\PYG{n}{rownames}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}metric\PYGZdq{}}\PYG{p}{)}
+\end{MintedVerbatim}

@@ -1,4 +1,5 @@
-\documentclass[10pt]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% Establish document class
+\documentclass[10pt, english]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
 % maxwidth is the original width if it is less than linewidth
 % otherwise use linewidth (to make sure the graphics do not exceed the margin)
 \makeatletter
@@ -50,7 +51,10 @@
 
 \usepackage{alltt}
 
+% Load tex header
 \input{header}
+
+% Load word counter function
 \input{word_counter}
 
 
@@ -65,9 +69,12 @@
 
 
 
+% Insert line numbers
 \linenumbers
 
 \title{Example R Sweave Document for the LEC CEEDS Coding Group}
+
+\author{Zeke Marshall}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
@@ -75,13 +82,16 @@
 
 \begin{abstract}
 
-\lipsum[1]
+Authoring publication-quality scientific documents with tools such as R Sweave provides a number of
+benefits relative to word document editors such as Microsoft Word by integrating 
+LaTeX and R. This document represents a minimal example of a R Sweave document
+with key functionality demonstrated.
 
 \end{abstract}
 
 \centering
 
-Keywords: ...
+Keywords: LaTeX, R, Scientific Document, Sweave
 
 \raggedright
 
@@ -89,6 +99,29 @@ Keywords: ...
 \label{sec:introduction}
 
 \countem
+
+R Sweave \parencite{leisch2002} allows you to author documents in LaTeX with the
+added benefit of integrating R code to produce figures, tables, and other objects
+produced for in-line display. This integration will be familiar for those who
+have used R Markdown \parencite{xie2019}, which integrates R and the markdown,
+but is of particular use in authoring scientific documents by providing the
+full typesetting capabilities of LaTeX.
+
+This document demonstrates the basic functionality of R Sweave and may be used
+as a template for new projects, allowing a user to navigate the many 
+idiosyncrasies of R Sweave which can bemuse new users.
+
+I use the \mintinline{latex}{biblatex} (\url{https://ctan.org/pkg/biblatex}) LaTeX
+package for bibliography management, which I recommend in place of older
+less well-maintained alternatives such as \mintinline{latex}{natbib}.
+As a compliment to \mintinline{latex}{biblatex} I recommend using a reference
+manager such as Zotero (\url{https://www.zotero.org/}) with the Better BibTeX 
+plugin (\url{https://retorque.re/zotero-better-bibtex/}).
+
+The use of R Sweave requires a LaTeX distribution, I recommend
+using the r package \mintinline{r}{tinytex} (\url{https://yihui.org/tinytex/}), 
+which can be used to install a lightweight LaTeX distribution with
+\mintinline{r}{tinytex::install_tinytex()}.
 
 \vspace{5mm}
 \endcountem
@@ -99,18 +132,24 @@ Keywords: ...
 
 \countem
 
-What is the purpose of the document?
+Before creating an R Sweave document it is worth considering the questions below
+in order to make a judgement on whether the time initially invested is likely to 
+save time in the long-run.
 
-Does your target journal accept pdf documents or tex documents? 
-
-Does you target journal have a latex template?
-
-Converting a .tex document is possible, but the formatting is not perfect and will
-need manual adjustment, especially if you use complex tables.
-
-If you are rejected by the target journal does you back-up journal accept pdf or tex documents?
-
-Are you co-authors confortable: 1) collaborating using R Sweave and latex, and/or 2)s
+\begin{itemize}
+  \item What is the purpose of the document? 
+        Is it a scientific article or equivelent document type requiring high-quality formatting?
+  \item How many figures and tables do you need to produce, and how many times do you need to reproduce these?
+  \item Does your target journal accept pdf documents or tex files? 
+  \item If you are rejected by the target journal does your back-up journal accept pdf or tex files?
+  \item Are your co-authors comfortable: 
+    \begin{enumerate}
+      \item Collaborating using R Sweave and latex?
+      \newline
+      or
+      \item Commenting on pdf documents without the reviewing and editing functionality found in Word?
+    \end{enumerate}
+\end{itemize}
 
 \vspace{5mm}
 \endcountem
@@ -119,9 +158,54 @@ Are you co-authors confortable: 1) collaborating using R Sweave and latex, and/o
 \section{Pros and Cons}
 \label{sec:pros_cons}
 
+\subsection{Pros}
+\label{sec:pros}
+
 \countem
 
-\lipsum[1]
+R Sweave has three key advantages:
+
+\begin{itemize}
+  \item Allows you to leverage the entire LaTeX ecosystem for document editing.
+  \item Integration with R code, facilitating the development of figures and tables
+        in the document without the need to manually copy and paste new figures,
+        or run separate scripts to regenerate figures.
+  \item Reference management. Bibtex references can be exported from a reference manager,
+        placed in the bibliography file, and cited via a key. Changing the citation style
+        is controlled by one parameter with no need to change the underlying biblatex entries.
+\end{itemize}
+
+If your analysis is well-structured and the R Sweave document sits at
+the end of a reproducible data pipeline, the document is also reproducible, and 
+can be easily versioned.
+
+\vspace{5mm}
+\endcountem
+\textbf{\thewordcount{} Words}
+
+\subsection{Cons}
+\label{sec:cons}
+
+\countem
+
+Despite the benefits outlined in Section \ref{sec:pros} there are some disadvantages to using LaTeX and R Sweave
+
+Converting a .tex document to word is possible using pandoc (https://github.com/jgm/pandoc), 
+but the formatting is not perfect and will need manual adjustment, 
+especially if you use complex tables. If a word document is a required as a key output
+I would consider using a different system.
+
+The LaTeX ecosystem is old and very large, many LaTeX packages are not well-documented or well-maintained,
+there are also compatibility issues occassionally.
+I recommend carefully selecting the packages you use along with minimising the total number of packages.
+
+As mentioned above creating a scientific document with R Sweave does involve an
+initial investment of time to set up, and a continued additional investment of time to author.
+The use of this document as a template will reduce some of this setup time, 
+and experience will reduce the speed with which you can author R Sweave documents,
+but careful consideration must be given to whether the benefits of using
+R Sweave and efficiencies gained through the in-document production of figures,
+tables, and statistics outweigh this additional investment of time.
 
 \vspace{5mm}
 \endcountem
@@ -132,11 +216,10 @@ Are you co-authors confortable: 1) collaborating using R Sweave and latex, and/o
 
 \countem
 
-A major benefit of authoring scientific documents, including with R Sweave,
-is the ability to integrate code and text into a reproducible document.
-
-Above we loaded and prepared the iris example dataset, below in \ref{fig:iris_plot}
-we produce a high-quality box plot which
+Above we loaded and prepared the iris example dataset, below in Figure \ref{fig:iris_plot}
+we produce a publication-quality box plot which can be altered, re-sized, and re-positioned
+with any changes then automatically incorporated into the document when the document
+is re-rendered.
 
 \begin{figure}[H]
 
@@ -147,17 +230,20 @@ we produce a high-quality box plot which
 
 
 
-\label{fig:iris_plot}
-\caption{.....}
+\caption{Box and whisker plots displaying the distribution of four anatomical flower measurements for three \textit{Iris} species.}
+\label{fig:iris_plot} % The label must be after the caption!
 \end{figure}
+
+Data can also be easily displayed in publication-quality tables, as demonstrated
+in Table \ref{tab:iris_table}.
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:iris_table}The example dataset - Iris.}
+\caption{\label{tab:iris_table}The first 20 rows of the iris example dataset.}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{9}{11}\selectfont
-\begin{tabular}[t]{lcclc}
+\begin{tabular}[t]{lcccc}
 \toprule
 \textbf{Species} & \textbf{Sepal.Length} & \textbf{Sepal.Width} & \textbf{Petal.Length} & \textbf{Petal.Width}\\
 \midrule
@@ -177,16 +263,75 @@ setosa & 4.9 & 3.1 & 1.5 & 0.1\\
 
 
 
+We can also print summary statistics in-line using the \mintinline{latex}{\Sexpr} 
+LaTeX function, for example the maximum petal width is 2.5.
+
+If you authoring a document in which you would like to display code, you can set the
+echo argument of a code chunk to TRUE, alternatively you can use the LaTeX 
+package \mintinline{latex}{minted} as follows, however you need to end the word
+counter before you use \mintinline{latex}{minted}.
+
 \vspace{5mm}
 \endcountem
 \textbf{\thewordcount{} Words}
+
+\begin{minted}
+[
+framesep=2mm,
+baselinestretch=1.2,
+bgcolor=LightGray,
+fontsize=\footnotesize
+]
+{r}
+repo_data_path <- file.path("./data")
+
+iris_raw <- read.csv(file = file.path(repo_data_path, "iris.csv")) |> 
+  tibble::as_tibble()
+  
+iris_summary <- summarytools::descr(x = iris_wide) |> 
+  as.data.frame() |> 
+  tibble::as_tibble(rownames = "metric")
+\end{minted}
 
 \section{Useful Resources}
 \label{sec:useful_resources}
 
 \countem
 
-\lipsum[1]
+\subsection{R Sweave and LaTeX}
+\label{sec:r_sweave}
+
+\begin{itemize}
+  \item The R Sweave manual is an essential guide (\url{https://stat.ethz.ch/R-manual/R-devel/library/utils/doc/Sweave.pdf}).
+  \item Overleaf (\url{https://www.overleaf.com/learn}) contains documentation on the usage of LaTeX in a very accessible format.
+\end{itemize}
+
+\subsection{Alternatives}
+\label{sec:alternatives}
+
+\begin{itemize}
+  \item R Markdown (\url{https://bookdown.org/yihui/rmarkdown/}).
+  \item Quarto (\url{https://quarto.org/}).
+  \item Typst (\url{https://typst.app/}).
+\end{itemize}
+
+\subsection{Other}
+\label{sec:other}
+
+\begin{itemize}
+  \item The \mintinline{R}{ggtext} R package allows you to modify text in ggplot2, 
+        of particular use is the \mintinline{R}{ggtext::element_markdown} function which
+        can be used as a drop in replacement for \mintinline{R}{ggtext::element_text}
+        with the added benefit of being able to italicise text etc
+        (\url{https://github.com/wilkelab/ggtext}).
+  \item \mintinline{R}{paletteer} contains an easy-to-use and comprehensive 
+        collection of color palettes compatible with \mintinline{R}{ggplot2} 
+        (\url{https://pmassicotte.github.io/paletteer_gallery/}).
+  \item \mintinline{R}{gt} is a popular alternative to \mintinline{R}{knitr::kable} and \mintinline{R}{kableExtra},
+        though some features such a 'long' tables which span multiple pages with repeated headers are not supported,
+        I advise picking one package with the features you need per project
+        (\url{https://github.com/rstudio/gt/}).
+\end{itemize}
 
 \vspace{5mm}
 \endcountem
@@ -197,27 +342,31 @@ setosa & 4.9 & 3.1 & 1.5 & 0.1\\
 
 \countem
 
-\lipsum[1]
+This document demonstrates the basic functionality provided by R Sweave and
+acts as a template for new documents.
 
 \vspace{5mm}
 \endcountem
 \textbf{\thewordcount{} Words}
 
-\section{Author Contributions}
+\section*{Author Contributions}
 \label{sec:author_contributions}
 
 Redacted for anonymity.
 
-\section{Acknowledgments}
+I would recommend using the CRediT Contributor Roles Taxonomy \parencite{nisocreditworkinggroup2022}
+for reporting author contributions.
+
+\section*{Acknowledgments}
 \label{sec:acknowledgements}
 
 Redacted for anonymity.
 
-\section{Conflict of interest}
+\section*{Conflict of interest}
 \label{sec:conflict_of_interest}
 
 The authors declare no potential conflict of interests.
 
-\bibliography{bibliography}
+\printbibliography
 
 \end{document}

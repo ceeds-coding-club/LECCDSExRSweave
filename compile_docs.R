@@ -8,7 +8,8 @@ knitr::knit("document.Rnw", output = paste0("tex_files/document_", version, ".te
 
 tinytex::latexmk(file = paste0("tex_files/document_", version, ".tex"), 
                  pdf_file = paste0("pdf_files/document_", version, ".pdf"),
-                 engine = "pdflatex")
+                 engine = "xelatex",
+                 bib_engine = "biber")
 
 file.remove(paste0("document_", version, ".log"))
 
