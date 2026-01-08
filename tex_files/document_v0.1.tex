@@ -196,7 +196,7 @@ especially if you use complex tables. If a word document is a required as a key 
 I would consider using a different system.
 
 The LaTeX ecosystem is old and very large, many LaTeX packages are not well-documented or well-maintained,
-there are also compatibility issues occassionally.
+there are also compatibility issues occasionally.
 I recommend carefully selecting the packages you use along with minimising the total number of packages.
 
 As mentioned above creating a scientific document with R Sweave does involve an
@@ -292,6 +292,18 @@ iris_summary <- summarytools::descr(x = iris_wide) |>
   as.data.frame() |> 
   tibble::as_tibble(rownames = "metric")
 \end{minted}
+
+Equations can also be displayed using math mode, either inline $\int x^2 \, dx$ 
+or as a block as shown in Equation \ref{eq:example_equation}.
+
+\begin{equation}
+\int x^2 \, dx
+\label{eq:example_equation}
+\end{equation}
+
+An additional useful feature is the ability to render algorithms,
+see the Overleaf documentation for a concise guide on how to achieve this
+(\url{https://www.overleaf.com/learn/latex/Algorithms}).
 
 \section{Useful Resources}
 \label{sec:useful_resources}
